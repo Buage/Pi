@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the URL of the webpage you want to stream
-URL="http://example.com"
+URL="https://youtube.com"
 
 # Set the output resolution (e.g., 1080x1920 for a 9:16 aspect ratio)
 RESOLUTION="1080x1920"
