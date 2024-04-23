@@ -9,13 +9,13 @@ RESOLUTION="1080x1920"
 # Set the output frame rate (e.g., 24 fps)
 FRAMERATE="24"
 
-# Generate a random port number between 10000 and 65535
-PORT=$(shuf -i 10000-65535 -n 1)
+# Set the desired port for streaming
+DEST_PORT="8554"
 
 # Get the IP address of the Raspberry Pi
 IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 
-# Use ffmpeg to capture the webpage content and stream it via RTSP
-ffmpeg -i "$URL" -vf "scale=$RESOLUTION" -r "$FRAMERATE" -f rtsp rtsp://$IP_ADDRESS:$PORT/live.sdp
+# Use ffmpeg to capture the webpage content and stream it via UDP
+ffmpeg -i "$URL" -vf "scale=$RESOLUTION" -r "$FRAMERATE" -f mpegts "udp://$IP_ADDRESS:$DEST_PORT"
 
-echo "Streaming webpage content from $URL via RTSP on port $PORT. Access it at rtsp://$IP_ADDRESS:$PORT/live.sdp"
+echo "Streaming webpage content from $URL via UDP on $IP_ADDRESS:$DEST_PORT"
